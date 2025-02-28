@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang = "pt-br">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Douglas Lima</title>
+        <link rel="icon" type="image/png" href="midia/D.png">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body style="background-color: white; color:black;">
+
+        <!--  Removi div para criar o próprio contador de views depois
+            <div align = center>
+            <a href="douglaslima.vercel.app">
+            <img src = "https://www.counter12.com/img-Z81CY60aY8D0bcD5-6.gif" border = "0"
+            alt = "contandor maneiro">
+            </a>
+            <script type = "text/javascript" src="https://www.counter12.com/ad.js?id=Z81CY60aY8D0bcD5">
+            </script>
+            </div> 
+        -->
+
+        <div class="box-contador-view-diaria">
+            <div class="contador-view-diaria" id="contador-view-diaria">
+                <span id="view-diaria">0</span>
+                <!-- Ajeitar gif para conseguir colocar
+                    <img src="midia/foguete-views.gif" alt="gif de foguete" style="max-width: 10%">
+                -->
+            </div>
+        </div>
+
+        <div class = "begin">
+            <h2>Professor Douglas Lima</h2>
+        </div>
+
+        <div class="container">
+            <div class = "line"></div>
+            <img src="midia/douglas.png" alt="Douglas Picture" class="circular">
+            <div class = "line"></div>
+        </div>
+
+        <div class = "context">
+            <h3>LINKS PARA CONTEÚDOS:</h3>
+        </div>
+
+        <div class="longline"></div>
+
+        <div>
+            <div class="image">
+                <img src="midia/oba-banner.jpg" alt="imagem do formulário da OBA">
+            </div>
+            
+            <div class = "context" style="margin-top: -5%;">
+                <a href="https://forms.gle/GV8LBZSyjkAUNzxd6">
+                    <h3>Inscrever-se</h3>
+                </a>
+            </div>
+        </div>
+
+        <div class="years">
+            <a href="https://drive.google.com/drive/folders/1-9NyN6d5KJ4xoetiSom7UdETdbrZsdQo">
+                <img src="midia/1.png" alt="Fist Year">
+            </a>
+
+            <a href="https://drive.google.com/drive/folders/1-DT0qv8-bQgr02JAhaJ1Awm-834aJwyO">
+                <img src="midia/2.png" alt="Second Year">
+            </a>
+
+            <a href="https://drive.google.com/drive/folders/1-DsaelSD80pg0ABc_06K7lP-7QY9Mvm9">
+                <img src="midia/3.png" alt="Third Year">
+            </a>
+        </div>
+
+        <script>
+            // Função para atualizar as visualizações diárias
+            function atualizarViewsDiarias(){
+                // Obtém data atual (Thu, 27 Feb 2025)
+                const hoje = new Date().toDateString();
+                // Obtém dados da localStorage OU cria objeto vazio
+                let dadosVisita = JSON.parse(localStorage.getItem('dadosVisita')) || {}; 
+
+                if (!dadosVisita[hoje]) { // Verifica se Data Atual existe no objeto
+                    dadosVisita[hoje] = 0; // Se NÃO EXISTE, define o valor para 0
+                }
+                dadosVisita[hoje]++; // Incrementa 1 ao número de visitas do dia atual
+                localStorage.setItem('dadosVisita', JSON.stringify(dadosVisita)); // Guarda dados atuais na localStorage
+
+                // Atualiza o texto do elemento HTML com ID 'view-diaria' com o valor de visitas do dia atual
+                document.getElementById('view-diaria').innerText = dadosVisita[hoje]; 
+            }
+
+            // Quando a página carregar, execute a função atualizarViewsDiarias
+            window.onload = atualizarViewsDiarias;
+        </script>
+    </body>
+</html>
