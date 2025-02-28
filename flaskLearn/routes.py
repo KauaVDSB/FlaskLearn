@@ -14,4 +14,4 @@ def novapag():
         'user': user,
         'namorado': namorado
     }
-    return render_template('oi.html', context=context)
+    return render_template('amor.html', context=context)
