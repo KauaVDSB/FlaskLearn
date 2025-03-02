@@ -15,3 +15,7 @@ def novapag():
         'namorado': namorado
     }
     return render_template('amor.html', context=context)
+
+@app.route('/contato/')
+def contato():
+    return render_template('contato.html')
