@@ -10,21 +10,59 @@
 </head>
 <body>
     <div class="container">
+
         <div class="row mt-4">
-            <h3>Contatos</h3>
+            <h3>Formulário GET</h3>
         </div>
-            <form action="" method="get" class="row mt-4">
-                <div class="col-9">
-                    <input type="text" placeholder="Digite algo para buscar" name="pesquisa" id="" class="form-control">
-                </div>
 
-                <div class="col-3">
-                    <button type="submit" class="btn btn-primary">Pesquisar</button>
-                </div>
+        <form action="" method="get" class="row mt-4">
+            <div class="col-9">
+                <input type="text" name="pesquisa" id="" class="form-control" placeholder="Digite algo para buscar">
+            </div>
 
-                <p>sua pesquisa foi: {{context['pesquisa']}}</p>
-            </form>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary col-12">Pesquisar</button>
+            </div>
+        </form>
+
+        <p>sua pesquisa foi: {{context['pesquisa']}}</p>
+        
+        <hr>
+        
+        <div class="row">
+            <h3>Formulário POST</h3>
+        </div>
+        
+        <form action="" method="post" class="row mt-4">
+            <div class="col-6">
+                Nome
+                <input type="text" name="nome" id="" class="form-control" required>
+            </div>
+
+            <div class="col-6">
+                E-mail
+                <input type="email" name="email" id="" class="form-control" required>
+            </div>
+
+            <div class="col-12 mt-2">
+                Assunto
+                <input type="text" name="assunto" id="" class="form-control" required>
+            </div>
+
+            <div class="col-12 mt-2">
+                Mensagem
+                <input type="text" name="mensagem" id="" class="form-control" required>
+            </div>
+            
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-dark col-12">Enviar</button>
+            </div>
+        </form>
+
+        <hr>
+
     </div>
+
 
 
 
