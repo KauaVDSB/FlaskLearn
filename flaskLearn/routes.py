@@ -18,8 +18,8 @@ def novapag():
     }
     return render_template('amor.html', context=context)
 
-@app.route('/contato/', methods=['GET', 'POST'])
-def contato():
+@app.route('/contato_old/', methods=['GET', 'POST'])
+def contato_old():
     context = {}
     if request.method == 'GET':
         pesquisa = request.args.get('pesquisa')
@@ -42,4 +42,4 @@ def contato():
         db.session.add(contato)
         db.session.commit()
 
-    return render_template('contato.html', context=context)
+    return render_template('contato_old.html', context=context)
