@@ -2,6 +2,7 @@ from flaskLearn import app, db
 from flask import render_template, url_for, request
 
 from flaskLearn.models import Contato
+from flaskLearn.forms import ContatoForm
 
 @app.route('/')
 def homepage():
@@ -18,6 +19,35 @@ def novapag():
     }
     return render_template('amor.html', context=context)
 
+
+
+
+@app.route('/contato/', methods=['GET', 'POST'])
+def contato():
+
+    form = ContatoForm()
+    context = {}
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        assunto = request.form['assunto']
+        mensagem = request.form['mensagem']
+
+        contato = Contato(
+            nome=nome,
+            email=email,
+            assunto=assunto,
+            mensagem=mensagem
+        )
+
+        db.session.add(contato)
+        db.session.commit()
+
+    return render_template('contato.html', form=form,context=context)
+
+
+
+# Formato não recomendado
 @app.route('/contato_old/', methods=['GET', 'POST'])
 def contato_old():
     context = {}
