@@ -8,19 +8,6 @@ from flaskLearn.forms import ContatoForm
 def homepage():
     return render_template('index.html')
 
-@app.route('/nova/')
-def novapag():
-    user = "heloísa"
-    namorado = "kauã"
-
-    context = {
-        'user': user,
-        'namorado': namorado
-    }
-    return render_template('amor.html', context=context)
-
-
-
 
 @app.route('/contato/', methods=['GET', 'POST'])
 def contato():
@@ -33,6 +20,40 @@ def contato():
 
     return render_template('contato.html', context=context, form=form)
 
+
+@app.route('/contato/lista/')
+def contatoLista():
+
+    if request.method == 'GET':
+        pesquisa = request.args.get('pesquisa', '') #Caso nao ache informacao correspondente, retorna nulo.
+
+    dados = Contato.query.order_by('nome')
+    if pesquisa != '':
+        dados = dados.filter_by(nome=pesquisa) #Filtra a coluna nome para receber nomes iguais a pesquisa.
+
+    context = {'dados': dados.all()}
+
+    return render_template('contato_lista.html', context=context)
+
+
+
+
+
+
+
+
+#------------------------------------------------------------
+
+@app.route('/nova/')
+def novapag():
+    user = "heloísa"
+    namorado = "kauã"
+
+    context = {
+        'user': user,
+        'namorado': namorado
+    }
+    return render_template('amor.html', context=context)
 
 
 # Formato não recomendado
