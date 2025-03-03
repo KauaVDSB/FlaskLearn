@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email # Para validar email, baixar biblioteca email_validator
 
 from flaskLearn import db
 from flaskLearn.models import Contato

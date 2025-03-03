@@ -1,5 +1,5 @@
 from flaskLearn import app, db
-from flask import render_template, url_for, request
+from flask import render_template, url_for, request, redirect
 
 from flaskLearn.models import Contato
 from flaskLearn.forms import ContatoForm
@@ -24,13 +24,14 @@ def novapag():
 
 @app.route('/contato/', methods=['GET', 'POST'])
 def contato():
-
     form = ContatoForm()
-    context = {}
+    context = {}    
     if form.validate_on_submit():
         form.save()
+        return redirect(url_for('homepage'))
+    print(form.errors) #aponta erro caso não seja validado
 
-    return render_template('contato.html', form=form,context=context)
+    return render_template('contato.html', context=context, form=form)
 
 
 
