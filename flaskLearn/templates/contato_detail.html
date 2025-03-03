@@ -1,0 +1,35 @@
+{% extends 'baseTemplate/base.html' %}
+
+{% block content %}
+    
+{% include 'baseTemplate/nav.html' %}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <h3>Contato</h3>
+
+        <div class="col-md-6 mt-4">
+            Nome
+            <input type="text" value="{{ obj.nome }}" class="form-control bg-dark text-white">
+        </div>
+        
+        <div class="col-md-6 mt-4">
+            E-mail
+            <input type="text" value="{{ obj.email }}" class="form-control bg-dark text-white">
+        </div>
+
+        <div class="col-12 mt-4">
+            Assunto
+            <input type="text" value="{{ obj.assunto }}" class="form-control bg-dark text-white">
+        </div>
+
+        <div class="col-12 mt-4">
+            Mensagem
+            <textarea type="text" rows="10" class="form-control bg-dark text-white"> {{ obj.nome }} </textarea>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

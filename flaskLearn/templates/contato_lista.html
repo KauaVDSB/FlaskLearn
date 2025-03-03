@@ -28,6 +28,7 @@
                             <th>Email</th>
                             <th>Assunto</th>
                             <th>Respondido</th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -45,6 +46,11 @@
                                     {% else %}
                                         Erro
                                     {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('contatoDetail', id=linha.id) }}">
+                                        <i class="bi bi-arrow-right-square text-black"></i>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
