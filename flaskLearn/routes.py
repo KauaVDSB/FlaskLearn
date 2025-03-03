@@ -27,21 +27,8 @@ def contato():
 
     form = ContatoForm()
     context = {}
-    if request.method == 'POST':
-        nome = request.form['nome']
-        email = request.form['email']
-        assunto = request.form['assunto']
-        mensagem = request.form['mensagem']
-
-        contato = Contato(
-            nome=nome,
-            email=email,
-            assunto=assunto,
-            mensagem=mensagem
-        )
-
-        db.session.add(contato)
-        db.session.commit()
+    if form.validate_on_submit():
+        form.save()
 
     return render_template('contato.html', form=form,context=context)
 
