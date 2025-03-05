@@ -15,7 +15,7 @@ class UserForm(FlaskForm):
     sobrenome = StringField('Sobrenome', validators=[DataRequired()])
     email = StringField('E-mail', validators=[DataRequired(), Email()])
     senha = PasswordField('Senha', validators=[DataRequired()])
-    confirmacao_senha = PasswordField('Confirmar senha', validators=[DataRequired, EqualTo('senha')])
+    confirmacao_senha = PasswordField('Confirmar senha', validators=[DataRequired(), EqualTo('senha')])
     btnSubmit = SubmitField('Cadastrar')
 
     # def com validate propria para verificar se email e unico. 
