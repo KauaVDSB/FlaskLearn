@@ -3,7 +3,7 @@ from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, current_user
 
 from flaskLearn.models import Contato
-from flaskLearn.forms import UserForm, ContatoForm
+from flaskLearn.forms import UserForm, LoginForm, ContatoForm
 
 
 # Rota para homepage
@@ -24,6 +24,25 @@ def cadastro():
     print(form.errors) #aponta erro caso não seja validado
 
     return render_template('cadastro.html', context=context, form=form)
+
+
+# Rota para login do usuário
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = form.login()
+        login_user(user, remember=True)
+        return redirect(url_for('homepage'))
+    print(form.errors) #aponta erro caso não seja validado
+    return render_template('login.html', form=form)
+
+
+# Rota para logout
+@app.route('/sair/')
+def logout():
+    logout_user()
+    return redirect(url_for('homepage'))
 
 
 # Rota para contato do usuario

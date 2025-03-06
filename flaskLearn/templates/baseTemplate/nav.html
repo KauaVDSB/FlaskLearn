@@ -18,12 +18,12 @@
     <span class="btn btn-dark m-2">
         {{ current_user.nome }} {{ current_user.sobrenome }}
     </span>
-    <a href="" class="btn btn-dark m-2">
+    <a href="{{ url_for('logout') }}" class="btn btn-dark m-2">
         Sair
     </a>
 {% else %}
-    <a href="{{url_for('cadastro')}}" class="btn btn-dark m-2">
-        Cadastro
+    <a href="{{url_for('login')}}" class="btn btn-dark m-2">
+        Login
     </a>
 {% endif %}
 <hr>

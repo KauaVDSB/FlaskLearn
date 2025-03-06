@@ -19,7 +19,7 @@ class UserForm(FlaskForm):
     btnSubmit = SubmitField('Cadastrar')
 
     # def com validate propria para verificar se email e unico. 
-    def validate_email(self, email): # Ao dar submit, ele procura todas as def que comecam com 'validate_'.
+    def validade_email(self, email): # Ao dar submit, ele procura todas as def que comecam com 'validade_'.
         if User.query.filter(email=email.data).first():
             return ValidationError('Usuário já cadastrado com este E-mail.')
 
@@ -40,6 +40,30 @@ class UserForm(FlaskForm):
         db.session.add(user)
         db.session.commit()
         return user
+
+
+# Login do usuario
+class LoginForm(FlaskForm):
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    senha = PasswordField('Senha', validators=[DataRequired()])
+    btnSubmit = SubmitField('Login')
+
+    def login(self):
+        # recuperar usuario do email
+        user = User.query.filter_by(email=self.email.data).first()
+
+        # verificar se a senha é valida
+        if user:
+            if bcrypt.check_password_hash(user.senha, self.senha.data.encode('utf-8')):
+                # Retorna o usuario
+                return user
+            else:
+                raise Exception('Senha incorreta.')
+        else:
+            raise Exception('Usuário não encontrado.')
+
+    
+
 
 
 # Contato do usuario
