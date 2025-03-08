@@ -2,7 +2,7 @@ from flaskLearn import app, db
 from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, current_user
 
-from flaskLearn.models import Contato
+from flaskLearn.models import Contato, Postagem
 from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm
 
 
@@ -23,7 +23,7 @@ def cadastro():
         return redirect(url_for('homepage'))
     print(form.errors) #aponta erro caso não seja validado
 
-    return render_template('cadastro.html', context=context, form=form)
+    return render_template('login/cadastro.html', context=context, form=form)
 
 
 # Rota para login do usuário
@@ -35,7 +35,7 @@ def login():
         login_user(user, remember=True)
         return redirect(url_for('homepage'))
     print(form.errors) #aponta erro caso não seja validado
-    return render_template('login.html', form=form)
+    return render_template('login/login.html', form=form)
 
 
 # Rota para logout
@@ -45,8 +45,11 @@ def logout():
     return redirect(url_for('homepage'))
 
 
+
+
+
 # Rota para o editor do blog
-@app.route('/blogeditor/', methods=['GET', 'POST'])
+@app.route('/blog/editor/', methods=['GET', 'POST'])
 def editorBlog():
     form = PostagemForm()
     context = {}    
@@ -56,7 +59,18 @@ def editorBlog():
         return redirect(url_for('homepage'))
     print(form.errors) #aponta erro caso não seja validado
 
-    return render_template('blog.html', context=context, form=form)
+    return render_template('blog/editor-blog.html', context=context, form=form)
+
+
+# Rota para postagem específica
+@app.route('/blog/postagem/<int:id>/')
+def detailBlog(id):
+    obj = Postagem.query.get(id)
+
+    return render_template('blog/detail-blog.html', obj=obj)
+
+
+
 
 
 # Rota para contato do usuario
@@ -69,7 +83,7 @@ def contato():
         return redirect(url_for('homepage'))
     print(form.errors) #aponta erro caso não seja validado
 
-    return render_template('contato.html', context=context, form=form)
+    return render_template('contato/contato.html', context=context, form=form)
 
 
 # Rota para lista de contatos dos usuarios
@@ -85,7 +99,7 @@ def contatoLista():
 
     context = {'dados': dados.all()}
 
-    return render_template('contato_lista.html', context=context)
+    return render_template('contato/contato_lista.html', context=context)
 
 
 # Rota para informacoes de um contato especifico de usuario
@@ -93,7 +107,7 @@ def contatoLista():
 def contatoDetail(id):
     obj = Contato.query.get(id)
     
-    return render_template('contato_detail.html', obj=obj)
+    return render_template('contato/contato_detail.html', obj=obj)
 
 
 
@@ -108,7 +122,7 @@ def amor():
         'user': user,
         'namorado': namorado
     }
-    return render_template('amor.html', context=context)
+    return render_template('misc/amor.html', context=context)
 
 
 # Formato não recomendado
@@ -136,4 +150,4 @@ def contato_old():
         db.session.add(contato)
         db.session.commit()
 
-    return render_template('contato_old.html', context=context)
+    return render_template('misc/contato_old.html', context=context)
