@@ -3,7 +3,7 @@ from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, current_user
 
 from flaskLearn.models import Contato
-from flaskLearn.forms import UserForm, LoginForm, ContatoForm
+from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm
 
 
 # Rota para homepage
@@ -45,6 +45,20 @@ def logout():
     return redirect(url_for('homepage'))
 
 
+# Rota para o editor do blog
+@app.route('/blogeditor/', methods=['GET', 'POST'])
+def editorBlog():
+    form = PostagemForm()
+    context = {}    
+    if form.validate_on_submit():
+        form.salvar()
+        print("oi")
+        return redirect(url_for('homepage'))
+    print(form.errors) #aponta erro caso não seja validado
+
+    return render_template('blog.html', context=context, form=form)
+
+
 # Rota para contato do usuario
 @app.route('/contato/', methods=['GET', 'POST'])
 def contato():
@@ -80,7 +94,6 @@ def contatoDetail(id):
     obj = Contato.query.get(id)
     
     return render_template('contato_detail.html', obj=obj)
-
 
 
 

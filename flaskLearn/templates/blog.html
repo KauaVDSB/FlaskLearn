@@ -1,0 +1,58 @@
+{% extends 'baseTemplate/base.html' %}
+
+{% block content %}
+    
+{% include 'baseTemplate/nav.html' %}
+
+
+<!-- Importando a biblioteca do CK Editor  -->
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.0/classic/ckeditor.js"></script>
+
+<div class="container">
+
+    <div class="row mt-4">
+        <h3>Cadastro de Usuário</h3>
+    </div>
+    
+    <form action="" method="post" class="row mt-4 p-4 rounded border shadow">
+
+        {{ form.csrf_token }}
+        
+        {{ form.autor.label() }}
+        {{ form.autor(class="form-control col-12 mt-3 mb-3") }}
+
+        {{ form.titulo.label() }}
+        {{ form.titulo(class="form-control col-12 mb-3") }}
+        
+        {{ form.conteudo.label() }}
+        <textarea class="form-control col-12 mt-3" name="conteudo" id="conteudo" rows="10" cols="80"></textarea>
+        
+        {{ form.btnSubmit(class="btn btn-primary col-12 mt-3") }}
+        
+    </form>
+</div>
+
+
+
+
+<script>
+    // Aqui vamos criar o editor de texto com a identificacao de "conteudo"
+    ClassicEditor.create(document.querySelector('#conteudo'), {
+        // ckfinder: {
+            // Neste arquivo vamos configurar o PHP que vai fazer o envio da imagem para a pasta "imagens/"
+            // uploadUrl: 'upload_imagem.php'
+        // },
+        mediaEmbed: {
+            // Faz com que videos e outras midias aparecam como previa dentro do editor
+            previewsInData: true
+        }
+    }).catch(error => {
+        // .catch e usado pra capturar qualquer erro que aconteca no codigo
+        // "error =>" e a funcao que sera chamada se esse erro acontecer...
+        // => significa "RECEBE", ou seja, a funcao vai receber o erro
+        console.error(error); // Exibe o erro no console do navegador, se ocorrer algum problema
+    });
+</script>
+
+
+{% endblock %}

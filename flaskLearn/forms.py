@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
 from flaskLearn import db, bcrypt
-from flaskLearn.models import User, Contato
+from flaskLearn.models import User, Contato, Postagem
 
 
 # Cadastro de usuario
@@ -63,7 +63,23 @@ class LoginForm(FlaskForm):
             raise Exception('Usuário não encontrado.')
 
     
+# Postagem do admin
+class PostagemForm(FlaskForm):
+    autor = StringField('Autor', validators=[DataRequired()])
+    titulo = StringField('Titulo', validators=[DataRequired()])
+    conteudo = StringField('Conteudo')
+    btnSubmit = SubmitField('Vai')
 
+    def salvar(self):
+        post = Postagem(
+            autor = self.autor.data,
+            titulo = self.titulo.data,
+            conteudo = self.conteudo.data
+        )
+
+        db.session.add(post)
+        db.session.commit()
+        print(post)
 
 
 # Contato do usuario
