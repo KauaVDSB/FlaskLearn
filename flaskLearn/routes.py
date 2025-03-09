@@ -9,7 +9,11 @@ from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm
 # Rota para homepage
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    dados = Postagem.query.order_by('id')
+
+    context = {'dados': dados.all()}
+
+    return render_template('index.html', context=context)
 
 
 # Rota para cadastro de usuario

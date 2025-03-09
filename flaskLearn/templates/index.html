@@ -4,4 +4,44 @@
     
 {% include 'baseTemplate/nav.html' %}
 
+<div class="container">
+    <div class="row mt-4">
+        <h3>Postagens</h3>
+
+        <div class="col-12">
+            <table class="table table-hover text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Autor</th>
+                        <th>Titulo</th>
+                        <th>Conteudo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for linha in context['dados'] %}
+                        <tr>
+                            <td>{{linha.id}}</td>
+                            <td>{{linha.autor}}</td>
+                            <td>{{linha.titulo}}</td>
+                            <td>{{linha.conteudo}}</td>
+                            <td>
+                                <a href="{{ url_for('detailBlog', id=linha.id) }}">
+                                    <i class="bi bi-arrow-right-square text-black"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
 {% endblock %}

@@ -4,7 +4,22 @@
 
 {% include 'baseTemplate/nav.html' %}
 
-
-
+<div class="container">
+    <div class="row">
+        <h3>Post {{ obj.titulo }}</h3>
+        <div class="col-12 mt-4">
+            Autor
+            <input type="text" value="{{ obj.autor }}" class="form-control bg-dark text-white" readonly>
+        </div>
+        <div class="col-12 mt-4">
+            Titulo
+            <input type="text" value="{{ obj.titulo }}" class="form-control bg-dark text-white" readonly>
+        </div>
+        <div class="col-12 mt-4">
+            Conteudo
+            <input type="text" value="{{ obj.conteudo }}" class="form-control bg-dark text-white" readonly>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
