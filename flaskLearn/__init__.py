@@ -24,5 +24,5 @@ bcrypt = Bcrypt(app)
 
 
 
-from flaskLearn.routes import homepage
+from flaskLearn.routes import *
 from flaskLearn.models import Contato
