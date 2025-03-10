@@ -84,7 +84,7 @@ def contato():
     context = {}    
     if form.validate_on_submit():
         form.save()
-        return redirect(url_for('homepage'))
+        return redirect(url_for('contatoLista'))
     print(form.errors) #aponta erro caso não seja validado
 
     return render_template('contato/contato.html', context=context, form=form)

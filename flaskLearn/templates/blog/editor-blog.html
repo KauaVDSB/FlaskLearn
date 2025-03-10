@@ -11,25 +11,27 @@
 <div class="container">
 
     <div class="row mt-4">
-        <h3>Cadastro de Usuário</h3>
+        <h3>Editor de Postagem</h3>
     </div>
-    
-    <form action="" method="post" class="row mt-4 p-4 rounded border shadow">
+    <div class="row">
 
-        {{ form.csrf_token }}
-        
-        {{ form.autor.label() }}
-        {{ form.autor(class="form-control col-12 mt-3 mb-3") }}
-
-        {{ form.titulo.label() }}
-        {{ form.titulo(class="form-control col-12 mb-3") }}
-        
-        {{ form.conteudo.label() }}
-        <textarea class="form-control col-12 mt-3" name="conteudo" id="conteudo" rows="10" cols="80"></textarea>
-        
-        {{ form.btnSubmit(class="btn btn-primary col-12 mt-3") }}
-        
-    </form>
+        <form action="" method="post" class="col-12 mt-4 p-4 rounded border shadow">
+            
+            {{ form.csrf_token }}
+            
+            {{ form.autor.label() }}
+            {{ form.autor(class="form-control col-12 mt-3 mb-3") }}
+            
+            {{ form.titulo.label() }}
+            {{ form.titulo(class="form-control col-12 mb-3") }}
+            
+            {{ form.conteudo.label() }}
+            <textarea class="form-control col-12 mt-3" name="conteudo" id="conteudo" rows="10" cols="80"></textarea>
+            
+            {{ form.btnSubmit(class="btn btn-primary col-12 mt-3") }}
+            
+        </form>
+    </div>
 
     <a href="{{url_for('homepage')}}">Ver Postagens</a>
     <a href="">Deletar Postagens</a>
