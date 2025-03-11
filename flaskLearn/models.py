@@ -44,6 +44,8 @@ class Post(db.Model):
     titulo = db.Column(db.String, nullable=True)
     mensagem = db.Column(db.String, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #Tabela que referencia a tabela usuário
+    comentarios = db.relationship('Comentario', backref='post', lazy=True)
+
 
     def msg_resumo(self):
         len_msg = len(self.mensagem)
@@ -51,4 +53,12 @@ class Post(db.Model):
             return f"{self.mensagem[:10]} ..."
         else:
             return self.mensagem
+
+
+class Comentario(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    data_criacao = db.Column(db.DateTime, default=datetime.now())
+    mensagem = db.Column(db.String, nullable=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=True)
+    
        

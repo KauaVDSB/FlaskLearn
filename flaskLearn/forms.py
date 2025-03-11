@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, TextAreaField
 
 # Para validar email, baixar biblioteca email_validator
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
 from flaskLearn import db, bcrypt
-from flaskLearn.models import User, Contato, Postagem, Post
+from flaskLearn.models import User, Contato, Postagem, Post, Comentario
 
 
 # Cadastro de usuario
@@ -104,7 +104,7 @@ class ContatoForm(FlaskForm):
 # Post do usuario com banco relacional
 class PostForm(FlaskForm):
     titulo = StringField('Título', validators=[DataRequired()])
-    mensagem = StringField('Mensagem', validators=[DataRequired()])
+    mensagem = TextAreaField('Mensagem', validators=[DataRequired()])
     btnSubmit = SubmitField('Enviar')
 
     def save(self, user_id):
@@ -115,4 +115,18 @@ class PostForm(FlaskForm):
         )
 
         db.session.add(post)
+        db.session.commit()
+
+
+class ComentarioForm(FlaskForm):
+    mensagem = TextAreaField('Comentario', validators=[DataRequired()])
+    btnSubmit = SubmitField('Enviar')
+
+    def save(self,post_id):
+        comentario = Comentario(
+            mensagem=self.mensagem.data,
+            post_id=post_id
+        )
+
+        db.session.add(comentario)
         db.session.commit()
