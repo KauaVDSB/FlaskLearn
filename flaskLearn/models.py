@@ -55,6 +55,9 @@ class Post(db.Model):
             return f"{self.mensagem[:10]} ..."
         else:
             return self.mensagem
+        
+    def data_resumo(self):
+        return str(self.data_criacao)[:16]
 
 
 class PostComentarios(db.Model):
