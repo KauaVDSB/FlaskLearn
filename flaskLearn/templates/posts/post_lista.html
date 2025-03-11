@@ -25,6 +25,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Título</th>
                             <th>Post</th>
                             <th>Usuário</th>
                             <th>E-mail</th>
@@ -35,8 +36,9 @@
                     <tbody>
                         {% for linha in posts %}
                             <tr>
+                                <td>{{linha.titulo}}</td>
                                 <td>{{linha.msg_resumo()}}</td>
-                                <td>{{linha.user.nome}}</td>
+                                <td>{{linha.user.nome}} {{linha.user.sobrenome}}</td>
                                 <td>{{linha.user.email}}</td>
                                 <td>
                                     <a href="{{ url_for('postDetail', id=linha.id) }}">

@@ -14,12 +14,12 @@
 
             {{ form.csrf_token }}
 
+            {{ form.titulo.label() }}
+            {{ form.titulo(class="form-control") }}
             {{ form.mensagem.label() }}
             {{ form.mensagem(class="form-control") }}
 
             {{ form.btnSubmit(class="btn btn-primary col-12 mt-3") }}
-
-            <a href="{{ url_for('login') }}" class="col-12 mt-4 text-dark">Já tem login? Login.</a>
 
         </form>
 

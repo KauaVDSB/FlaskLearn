@@ -103,11 +103,13 @@ class ContatoForm(FlaskForm):
 
 # Post do usuario com banco relacional
 class PostForm(FlaskForm):
+    titulo = StringField('Título', validators=[DataRequired()])
     mensagem = StringField('Mensagem', validators=[DataRequired()])
     btnSubmit = SubmitField('Enviar')
 
     def save(self, user_id):
         post = Post(
+            titulo=self.titulo.data,
             mensagem=self.mensagem.data,
             user_id=user_id            
         )

@@ -55,15 +55,15 @@ def postNovo():
     form = PostForm()
     if form.validate_on_submit():
         form.save(current_user.id)
-        return redirect(url_for('homepage'))
+        return redirect(url_for('postLista'))
     return render_template('posts/post_novo.html', form=form)
 
 
 @app.route('/post/lista/')
 def postLista():
     posts = Post.query.all()
-
-    return render_template('post_lista.html', posts=posts)
+    print(current_user.posts)
+    return render_template('posts/post_lista.html', posts=posts)
 
 
 @app.route('/post/<int:id>/')
