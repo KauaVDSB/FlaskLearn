@@ -1,0 +1,31 @@
+{% extends 'baseTemplate/base.html' %}
+
+{% block content %}
+    
+{% include 'baseTemplate/nav.html' %}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <h3>Post {{ obj.id }}</h3>
+        <p>{{ obj.data_criacao }}</p>
+
+        <div class="col-md-6 mt-4">
+            Usuario
+            <input type="text" value="{{ obj.user.nome }}" class="form-control bg-dark text-white" readonly>
+        </div>
+        
+        <div class="col-md-6 mt-4">
+            E-mail
+            <input type="text" value="{{ obj.user.email }}" class="form-control bg-dark text-white" readonly>
+        </div>
+
+        <div class="col-12 mt-4">
+            Mensagem
+            <textarea type="text" rows="10" class="form-control bg-dark text-white" readonly> {{ obj.mensagem }} </textarea>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

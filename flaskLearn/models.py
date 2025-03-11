@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String, nullable=True)
     senha = db.Column(db.String, nullable=True)
     data_cadastro = db.Column(db.DateTime, default=datetime.now())
+    posts = db.relationship('Post', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
 
 
 class Contato(db.Model):
@@ -33,3 +34,16 @@ class Postagem(db.Model):
     autor = db.Column(db.String, nullable=True)
     titulo = db.Column(db.String, nullable=True)
     conteudo = db.Column(db.String, nullable=True)
+
+
+# Testando relação entre tabelas:
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    data_criacao = db.Column(db.DateTime, default=datetime.now())
+    mensagem = db.Column(db.String, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #Tabela que referencia a tabela usuário
+
+    def msg_resumo(self):
+        return f"{self.mensagem[:10]} ..."
+    

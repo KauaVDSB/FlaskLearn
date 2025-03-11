@@ -2,8 +2,8 @@ from flaskLearn import app, db
 from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, current_user
 
-from flaskLearn.models import Contato, Postagem
-from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm
+from flaskLearn.models import Contato, Postagem, Post
+from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm, PostForm
 
 
 # Rota para homepage
@@ -49,7 +49,28 @@ def logout():
     return redirect(url_for('homepage'))
 
 
+# Rota para Post Novo
+@app.route('/post/novo/', methods=['GET', 'POST'])
+def postNovo():
+    form = PostForm()
+    if form.validate_on_submit():
+        form.save(current_user.id)
+        return redirect(url_for('homepage'))
+    return render_template('posts/post_novo.html', form=form)
 
+
+@app.route('/post/lista/')
+def postLista():
+    posts = Post.query.all()
+
+    return render_template('post_lista.html', posts=posts)
+
+
+@app.route('/post/<int:id>/')
+def postDetail(id):
+    obj = Post.query.get(id)
+
+    return render_template('posts/post_detail.html', obj=obj)
 
 
 # Rota para o editor do blog

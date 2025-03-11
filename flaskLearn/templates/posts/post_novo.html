@@ -1,0 +1,31 @@
+{% extends 'baseTemplate/base.html' %}
+
+{% block content %}
+
+    {% include 'baseTemplate/nav.html' %}
+
+    <div class="container">
+
+        <div class="row mt-4">
+            <h3>Editor de Post</h3>
+        </div>
+        
+        <form action="" method="post" class="row mt-4 p-4 rounded border shadow">
+
+            {{ form.csrf_token }}
+
+            {{ form.mensagem.label() }}
+            {{ form.mensagem(class="form-control") }}
+
+            {{ form.btnSubmit(class="btn btn-primary col-12 mt-3") }}
+
+            <a href="{{ url_for('login') }}" class="col-12 mt-4 text-dark">Já tem login? Login.</a>
+
+        </form>
+
+        <hr>
+
+    </div>
+
+    
+{% endblock %}

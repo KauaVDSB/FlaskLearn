@@ -1,0 +1,59 @@
+{% extends 'baseTemplate/base.html' %}
+
+{% block content %}
+
+    {% include 'baseTemplate/nav.html' %}
+
+    <div class="container">
+
+        <div class="row mt-4">
+            <h3>Lista de Posts</h3>
+<!--
+    <form method="get" class="row mt-4">
+        <div class="col-9">
+            <input type="text" name="pesquisa" id="" class="form-control">
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-primary col-12">
+                Pesquisar
+            </button>
+        </div>
+    </form>
+-->
+            
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Post</th>
+                            <th>Usuário</th>
+                            <th>E-mail</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for linha in posts %}
+                            <tr>
+                                <td>{{linha.msg_resumo()}}</td>
+                                <td>{{linha.user.nome}}</td>
+                                <td>{{linha.user.email}}</td>
+                                <td>
+                                    <a href="{{ url_for('postDetail', id=linha.id) }}">
+                                        <i class="bi bi-arrow-right-square text-black"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        </form>
+
+        <hr>
+
+    </div>
+
+{% endblock %}

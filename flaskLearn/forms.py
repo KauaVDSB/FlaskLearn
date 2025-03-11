@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
 from flaskLearn import db, bcrypt
-from flaskLearn.models import User, Contato, Postagem
+from flaskLearn.models import User, Contato, Postagem, Post
 
 
 # Cadastro de usuario
@@ -99,4 +99,18 @@ class ContatoForm(FlaskForm):
         )
 
         db.session.add(contato)
+        db.session.commit()
+
+# Post do usuario com banco relacional
+class PostForm(FlaskForm):
+    mensagem = StringField('Mensagem', validators=[DataRequired()])
+    btnSubmit = SubmitField('Enviar')
+
+    def save(self, user_id):
+        post = Post(
+            mensagem=self.mensagem.data,
+            user_id=user_id            
+        )
+
+        db.session.add(post)
         db.session.commit()
