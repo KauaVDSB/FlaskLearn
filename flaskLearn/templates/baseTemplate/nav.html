@@ -24,9 +24,9 @@
 </a>
 
 {% if current_user.is_authenticated %}
-    <span class="btn btn-dark m-2">
+    <a href="{{ url_for('dashboard') }}" class="btn btn-dark m-2">
         {{ current_user.nome }} {{ current_user.sobrenome }}
-    </span>
+    </a>
     <a href="{{ url_for('logout') }}" class="btn btn-dark m-2">
         Sair
     </a>

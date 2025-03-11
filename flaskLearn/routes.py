@@ -2,7 +2,7 @@ from flaskLearn import app, db
 from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, current_user
 
-from flaskLearn.models import Contato, Postagem, Post
+from flaskLearn.models import Contato, Postagem, Post, User
 from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm, PostForm
 
 
@@ -14,6 +14,17 @@ def homepage():
     context = {'dados': dados.all()}
 
     return render_template('index.html', context=context)
+
+
+# Dashboard usuario
+@app.route('/dashboard/')
+def dashboard():
+    lenPosts = len(current_user.posts)
+    obj = User.query.get(current_user.id)
+    context = {
+        'lenPosts': lenPosts
+    }
+    return render_template('login/dashboard.html', obj=obj, context=context)
 
 
 # Rota para cadastro de usuario

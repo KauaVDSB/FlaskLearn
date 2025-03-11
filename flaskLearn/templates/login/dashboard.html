@@ -7,22 +7,35 @@
 <div class="container mt-4">
     <div class="row">
 
-        <h3>{{ obj.titulo }}</h3>
-        <p>{{ obj.data_criacao }}</p>
+        <h3>{{ obj.nome }} {{ obj.sobrenome }}</h3>
+        <p>{{ obj.data_cadastro }}</p>
 
         <div class="col-md-6 mt-4">
             Usuario
-            <input type="text" value="{{ obj.user.nome }}" class="form-control bg-dark text-white" readonly>
+            <input type="text" value="{{ obj.nome }}" class="form-control bg-dark text-white" readonly>
         </div>
         
         <div class="col-md-6 mt-4">
             E-mail
-            <input type="text" value="{{ obj.user.email }}" class="form-control bg-dark text-white" readonly>
+            <input type="text" value="{{ obj.email }}" class="form-control bg-dark text-white" readonly>
         </div>
 
         <div class="col-12 mt-4">
-            Mensagem
-            <textarea type="text" rows="10" class="form-control bg-dark text-white" readonly> {{ obj.mensagem }} </textarea>
+            Posts
+            <input type="text" value="{{ context.lenPosts }} Posts:" class="form-control bg-dark text-white" readonly></input>
+            <table class="table">
+                <tbody>
+                    {% for post in range(context.lenPosts) %}<a href="{{ url_for('postDetail', id=post) }}">
+                        <tr>
+                            <td>
+                                <a href="{{ url_for('postDetail', id=post+1) }}">
+                                    {{ current_user.posts[post].titulo }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
 
     </div>
