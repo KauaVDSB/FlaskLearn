@@ -36,12 +36,23 @@
 
         {{ form.csrf_token }}
 
-        {{ form.mensagem.label() }}
-        {{ form.mensagem(class="form-control") }}
+        {{ form.comentario.label() }}
+        {{ form.comentario(class="form-control") }}
 
         {{ form.btnSubmit(class="btn btn-primary col-12 mt-3")}}
 
     </form>
+
+    <div class="row mb-4">
+        {% for comentario in range(context.lenComentarios) %}
+            <div class="col-12 bg-dark rounded text-white mt-2">
+                {{ obj.comentarios[comentario].user.nome }} {{ obj.comentarios[comentario].user.sobrenome }}<span>, </span>
+                 {{ obj.comentarios[comentario].data_resumo() }} <br>
+                {{ obj.comentarios[comentario].comentario }}
+            </div>
+            
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

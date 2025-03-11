@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
 from flaskLearn import db, bcrypt
-from flaskLearn.models import User, Contato, Postagem, Post, Comentario
+from flaskLearn.models import User, Contato, Postagem, Post, PostComentarios
 
 
 # Cadastro de usuario
@@ -118,15 +118,17 @@ class PostForm(FlaskForm):
         db.session.commit()
 
 
-class ComentarioForm(FlaskForm):
-    mensagem = TextAreaField('Comentario', validators=[DataRequired()])
+class PostComentariosForm(FlaskForm):
+    comentario = TextAreaField('Comentario', validators=[DataRequired()])
     btnSubmit = SubmitField('Enviar')
 
-    def save(self,post_id):
-        comentario = Comentario(
-            mensagem=self.mensagem.data,
+    def save(self, user_id, post_id):
+        post_comentarios = PostComentarios(
+            comentario=self.comentario.data,
+            user_id=user_id,
             post_id=post_id
         )
 
-        db.session.add(comentario)
+        db.session.add(post_comentarios)
         db.session.commit()
+        

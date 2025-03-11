@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     senha = db.Column(db.String, nullable=True)
     data_cadastro = db.Column(db.DateTime, default=datetime.now())
     posts = db.relationship('Post', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
+    post_comentarios = db.relationship('PostComentarios', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
 
 
 class Contato(db.Model):
@@ -44,7 +45,8 @@ class Post(db.Model):
     titulo = db.Column(db.String, nullable=True)
     mensagem = db.Column(db.String, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) #Tabela que referencia a tabela usuário
-    comentarios = db.relationship('Comentario', backref='post', lazy=True)
+    comentarios = db.relationship('PostComentarios', backref='post', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
+
 
 
     def msg_resumo(self):
@@ -55,10 +57,12 @@ class Post(db.Model):
             return self.mensagem
 
 
-class Comentario(db.Model):
+class PostComentarios(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data_criacao = db.Column(db.DateTime, default=datetime.now())
-    mensagem = db.Column(db.String, nullable=True)
+    comentario = db.Column(db.String, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=True)
     
-       
+    def data_resumo(self):
+       return str(self.data_criacao)[:10]

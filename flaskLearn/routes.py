@@ -2,8 +2,8 @@ from flaskLearn import app, db
 from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, current_user
 
-from flaskLearn.models import Contato, Postagem, Post, User, Comentario
-from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm, PostForm, ComentarioForm
+from flaskLearn.models import Contato, Postagem, Post, User
+from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm, PostForm, PostComentariosForm
 
 
 # Rota para homepage
@@ -79,12 +79,16 @@ def postLista():
 @app.route('/post/<int:id>/', methods=['GET', 'POST'])
 def postDetail(id):
     obj = Post.query.get(id)
-    form = ComentarioForm()
+    lenComentarios = len(obj.comentarios)
+    form = PostComentariosForm()
+    context = {
+        'lenComentarios': lenComentarios
+    }
     if form.validate_on_submit():
-        form.save(id)
+        form.save(current_user.id, id)
         return redirect(url_for('postDetail', id=id))
 
-    return render_template('posts/post_detail.html', obj=obj, form=form)
+    return render_template('posts/post_detail.html', obj=obj, form=form, context=context)
 
 
 
