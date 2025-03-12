@@ -4,6 +4,7 @@ from wtforms import StringField, SubmitField, PasswordField, TextAreaField
 # Para validar email, baixar biblioteca email_validator
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
+from flask_login import current_user
 
 from flaskLearn import db, bcrypt
 from flaskLearn.models import User, Contato, Postagem, Post, PostComentarios
@@ -40,6 +41,16 @@ class UserForm(FlaskForm):
         db.session.add(user)
         db.session.commit()
         return user
+
+
+class AlterUserForm(FlaskForm):
+    nome = StringField('Novo nome', validators=[DataRequired()])
+    btnSubmit = SubmitField('Alterar nome')
+
+    def save(self):
+        alt_user = User.query.filter_by(id=current_user.id).first()
+
+        alt_user.alt_nome(alt_user, self.nome.data)
 
 
 # Login do usuario

@@ -47,7 +47,7 @@
         {% for comentario in range(context.lenComentarios) %}
             <div class="col-12 bg-dark rounded text-white mt-2">
                 {{ obj.comentarios[comentario].user.nome }} {{ obj.comentarios[comentario].user.sobrenome }}<span>, </span>
-                 {{ obj.comentarios[comentario].data_resumo() }} <br>
+                {{ obj.comentarios[comentario].data_resumo() }} <br>
                 {{ obj.comentarios[comentario].comentario }}
             </div>
             

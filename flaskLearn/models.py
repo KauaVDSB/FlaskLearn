@@ -10,6 +10,7 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    admin = db.Column(db.Boolean, default=False)
     nome = db.Column(db.String, nullable=True)
     sobrenome = db.Column(db.String, nullable=True)
     email = db.Column(db.String, nullable=True)
@@ -18,6 +19,10 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
     post_comentarios = db.relationship('PostComentarios', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
 
+    def alt_nome(self, alt_user, novo_nome):
+        alt_user.nome = novo_nome
+
+        db.session.commit()
 
 class Contato(db.Model):
     id = db.Column(db.Integer, primary_key=True)

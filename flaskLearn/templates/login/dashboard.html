@@ -20,6 +20,17 @@
             <input type="text" value="{{ obj.email }}" class="form-control bg-dark text-white" readonly>
         </div>
 
+        <form action="" method="post" class="row mt-4 p-4 rounded border shadow">
+            {{ form.csrf_token }}
+
+            {{ form.nome.label() }}
+            {{ form.nome(class="form-control") }}
+
+            {{ form.btnSubmit }}
+
+
+        </form>
+
         <div class="col-12 mt-4">
             Posts
             <input type="text" value="{{ context.lenPosts }} Posts:" class="form-control bg-dark text-white" readonly></input>
