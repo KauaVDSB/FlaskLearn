@@ -19,10 +19,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
     post_comentarios = db.relationship('PostComentarios', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
 
-    def alt_nome(self, alt_user, novo_nome):
-        alt_user.nome = novo_nome
-
-        db.session.commit()
+    
 
 class Contato(db.Model):
     id = db.Column(db.Integer, primary_key=True)

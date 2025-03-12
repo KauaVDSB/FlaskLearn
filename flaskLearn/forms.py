@@ -49,8 +49,10 @@ class AlterUserForm(FlaskForm):
 
     def save(self):
         alt_user = User.query.filter_by(id=current_user.id).first()
+        
+        alt_user.nome = self.nome.data
 
-        alt_user.alt_nome(alt_user, self.nome.data)
+        db.session.commit()
 
 
 # Login do usuario
