@@ -12,7 +12,7 @@
 
         <div class="col-md-6 mt-4">
             Usuario
-            <input type="text" value="{{ obj.nome }}" class="form-control bg-dark text-white" readonly>
+            <input type="text" value="{{ obj.nome }} {{ obj.sobrenome }}" class="form-control bg-dark text-white" readonly>
         </div>
         
         <div class="col-md-6 mt-4">
@@ -23,12 +23,34 @@
         <form action="" method="post" class="row mt-4 p-4 rounded border shadow">
             {{ form.csrf_token }}
 
-            {{ form.nome.label() }}
-            {{ form.nome(class="form-control") }}
+            <div class="col-md-6 mt-2">
+                {{ form.nome.label() }}
+                {{ form.nome(class="form-control col-6 bg-dark text-white") }}
+            </div>
 
-            {{ form.btnSubmit }}
+            <div class="col-md-6 mt-2">
+                {{ form.sobrenome.label() }}
+                {{ form.sobrenome(class="form-control col-6 bg-dark text-white")}}
+            </div>
 
-
+            <div class="col-12 mt-2">
+                {{ form.email.label() }}
+                {{ form.email(class="form-control col-12 bg-dark text-white")}}
+            </div>
+            
+            <div class="col-12 mt-2">
+                {{ form.senha.label() }}
+                {{ form.senha(class="form-control col-12 bg-dark text-white")}}
+            </div>
+            
+            <div class="col-12 mt-2">
+                {{ form.confirmacao_senha.label() }}
+                {{ form.confirmacao_senha(class="form-control col-12 bg-dark text-white")}}
+            </div>
+                
+            <div class="col-12 mt-4">
+                {{ form.btnSubmit(class="btn btn-dark mt-4 col-12")}}
+            </div>
         </form>
 
         <div class="col-12 mt-4">

@@ -44,13 +44,25 @@ class UserForm(FlaskForm):
 
 
 class AlterUserForm(FlaskForm):
-    nome = StringField('Novo nome', validators=[DataRequired()])
-    btnSubmit = SubmitField('Alterar nome')
+    nome = StringField('Nome')
+    sobrenome = StringField('Sobrenome')
+    email = StringField('E-mail', validators=[Email()])
+    senha = PasswordField('Senha')
+    confirmacao_senha = PasswordField('Confirmar senha', validators=[EqualTo('senha')])
+    btnSubmit = SubmitField('Salvar alterações')
 
     def save(self):
         alt_user = User.query.filter_by(id=current_user.id).first()
         
-        alt_user.nome = self.nome.data
+        if self.nome.data:
+            alt_user.nome = self.nome.data
+        if self.sobrenome.data:
+            alt_user.sobrenome = self.sobrenome.data
+        if self.email.data:
+            alt_user.email = self.email.data
+        if self.senha.data:
+            alt_user.senha = self.senha.data
+        
 
         db.session.commit()
 

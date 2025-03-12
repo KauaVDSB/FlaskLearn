@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String, nullable=True)
     senha = db.Column(db.String, nullable=True)
     data_cadastro = db.Column(db.DateTime, default=datetime.now())
+    
     posts = db.relationship('Post', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
     post_comentarios = db.relationship('PostComentarios', backref='user', lazy=True) #É a tabela referenciada. (um usuario pode ter varios posts)
 
