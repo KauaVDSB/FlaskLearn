@@ -68,4 +68,4 @@ class PostComentarios(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=True)
     
     def data_resumo(self):
-       return str(self.data_criacao)[:10]
+        return str(self.data_criacao)[:10]

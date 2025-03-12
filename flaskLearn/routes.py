@@ -1,6 +1,6 @@
 from flaskLearn import app, db
 from flask import render_template, url_for, request, redirect
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 from flaskLearn.models import Contato, Postagem, Post, User
 from flaskLearn.forms import UserForm, LoginForm, ContatoForm, PostagemForm, PostForm, PostComentariosForm
@@ -18,6 +18,7 @@ def homepage():
 
 # Dashboard usuario
 @app.route('/dashboard/')
+@login_required                 # Exige login do usuário.
 def dashboard():
     lenPosts = len(current_user.posts)
     obj = User.query.get(current_user.id)
@@ -55,6 +56,7 @@ def login():
 
 # Rota para logout
 @app.route('/sair/')
+@login_required                 # Exige login do usuário.
 def logout():
     logout_user()
     return redirect(url_for('homepage'))
@@ -62,6 +64,7 @@ def logout():
 
 # Rota para Post Novo
 @app.route('/post/novo/', methods=['GET', 'POST'])
+@login_required                 # Exige login do usuário.
 def postNovo():
     form = PostForm()
     if form.validate_on_submit():
@@ -77,6 +80,7 @@ def postLista():
 
 
 @app.route('/post/<int:id>/', methods=['GET', 'POST'])
+@login_required                 # Exige login do usuário.
 def postDetail(id):
     obj = Post.query.get(id)
     lenComentarios = len(obj.comentarios)
@@ -95,6 +99,7 @@ def postDetail(id):
 
 # Rota para o editor do blog
 @app.route('/blog/editor/', methods=['GET', 'POST'])
+@login_required                 # Exige login do usuário.
 def editorBlog():
     form = PostagemForm()
     context = {}    
@@ -109,6 +114,7 @@ def editorBlog():
 
 # Rota para postagem específica
 @app.route('/blog/postagem/<int:id>/')
+@login_required                 # Exige login do usuário.
 def detailBlog(id):
     obj = Postagem.query.get(id)
 
@@ -120,6 +126,7 @@ def detailBlog(id):
 
 # Rota para contato do usuario
 @app.route('/contato/', methods=['GET', 'POST'])
+@login_required                 # Exige login do usuário.
 def contato():
     form = ContatoForm()
     context = {}    
@@ -133,6 +140,7 @@ def contato():
 
 # Rota para lista de contatos dos usuarios
 @app.route('/contato/lista/')
+@login_required                 # Exige login do usuário.
 def contatoLista():
 
     if request.method == 'GET':
@@ -149,6 +157,7 @@ def contatoLista():
 
 # Rota para informacoes de um contato especifico de usuario
 @app.route('/contato/<int:id>/')
+@login_required                 # Exige login do usuário.
 def contatoDetail(id):
     obj = Contato.query.get(id)
     
@@ -159,6 +168,7 @@ def contatoDetail(id):
 #------------------------------------------------------------
 
 @app.route('/amor/')
+@login_required                 # Exige login do usuário.
 def amor():
     user = "heloísa"
     namorado = "kauã"
@@ -172,6 +182,7 @@ def amor():
 
 # Formato não recomendado
 @app.route('/contato_old/', methods=['GET', 'POST'])
+@login_required                 # Exige login do usuário.
 def contato_old():
     context = {}
     if request.method == 'GET':
