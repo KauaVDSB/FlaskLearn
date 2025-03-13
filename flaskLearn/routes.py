@@ -82,6 +82,7 @@ def postNovo():
 
 
 @app.route('/post/lista/')
+@login_required
 def postLista():
     posts = Post.query.all()
     return render_template('posts/post_lista.html', posts=posts)
