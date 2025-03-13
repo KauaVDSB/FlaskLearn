@@ -3,7 +3,7 @@ from flask import render_template, url_for, request, redirect
 from flask_login import login_user, logout_user, current_user, login_required
 
 from flaskLearn.models import Contato, Postagem, Post, User
-from flaskLearn.forms import UserForm, AlterUserForm, LoginForm, ContatoForm, PostagemForm, PostForm, PostComentariosForm
+from flaskLearn.forms import UserForm, AlterUserForm, AdminForm, LoginForm, ContatoForm, PostagemForm, PostForm, PostComentariosForm
 
 
 # Rota para homepage
@@ -23,13 +23,17 @@ def dashboard():
     lenPosts = len(current_user.posts)
     obj = User.query.get(current_user.id)
     form = AlterUserForm()
+    admform = AdminForm()
     context = {
         'lenPosts': lenPosts
     }
     if form.validate_on_submit():
         form.save()
         return redirect(url_for('dashboard'))
-    return render_template('login/dashboard.html', obj=obj, context=context, form=form)
+    if admform.validate_on_submit():
+        admform.save()
+        return redirect(url_for('dashboard'))
+    return render_template('login/dashboard.html', obj=obj, context=context, form=form, admform=admform)
 
 
 # Rota para cadastro de usuario
@@ -105,6 +109,8 @@ def postDetail(id):
 @app.route('/blog/editor/', methods=['GET', 'POST'])
 @login_required                 # Exige login do usuário.
 def editorBlog():
+    if current_user.admin == False:
+        return redirect(url_for('homepage'))
     form = PostagemForm()
     context = {}    
     if form.validate_on_submit():

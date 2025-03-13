@@ -66,6 +66,17 @@ class AlterUserForm(FlaskForm):
 
         db.session.commit()
 
+class AdminForm(FlaskForm):
+    btnSubmit = SubmitField('Get Admin')
+
+    def save(self):
+        admin = User.query.get(current_user.id)
+        print(admin.admin)
+        admin.admin = True
+        print(admin.admin)
+        
+        db.session.commit()
+
 
 # Login do usuario
 class LoginForm(FlaskForm):
