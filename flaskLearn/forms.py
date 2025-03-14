@@ -71,10 +71,8 @@ class AdminForm(FlaskForm):
 
     def save(self):
         admin = User.query.get(current_user.id)
-        print(admin.admin)
         admin.admin = True
-        print(admin.admin)
-        
+
         db.session.commit()
 
 
@@ -103,7 +101,7 @@ class LoginForm(FlaskForm):
 class PostagemForm(FlaskForm):
     autor = StringField('Autor', validators=[DataRequired()])
     titulo = StringField('Titulo', validators=[DataRequired()])
-    conteudo = StringField('Conteudo')
+    conteudo = TextAreaField('Conteudo')
     btnSubmit = SubmitField('Vai')
 
     def salvar(self):
@@ -115,7 +113,6 @@ class PostagemForm(FlaskForm):
 
         db.session.add(post)
         db.session.commit()
-        print(post)
 
 
 # Contato do usuario

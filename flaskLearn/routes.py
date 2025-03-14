@@ -116,7 +116,6 @@ def editorBlog():
     context = {}    
     if form.validate_on_submit():
         form.salvar()
-        print("oi")
         return redirect(url_for('homepage'))
     print(form.errors) #aponta erro caso não seja validado
 
