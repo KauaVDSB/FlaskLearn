@@ -61,13 +61,17 @@ class AlterUserForm(FlaskForm):
         if self.email.data:
             alt_user.email = self.email.data
         if self.senha.data:
-            alt_user.senha = self.senha.data
+            senha = bcrypt.generate_password_hash(self.senha.data.encode('utf-8'))
+            alt_user.senha = senha
         
 
         db.session.commit()
 
 class AdminForm(FlaskForm):
     btnSubmit = SubmitField('Get Admin')
+
+    def teste(self, post):
+        print(post)
 
     def save(self):
         admin = User.query.get(current_user.id)

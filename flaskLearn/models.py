@@ -60,7 +60,10 @@ class Post(db.Model):
             return self.mensagem
         
     def data_resumo(self):
-        return str(self.data_criacao)[:16]
+        data = str(self.data_criacao)[:16].replace(":", "h")
+        data = data.replace("-", "/")
+        dataOrdem = data[8:10] + "/" + data[5:8] + data[:4] + data[10:]
+        return dataOrdem
 
 
 class PostComentarios(db.Model):

@@ -60,15 +60,15 @@
         </form>
 
         <div class="col-12 mt-4">
-            Posts
+            <hr>
             <input type="text" value="{{ context.lenPosts }} Posts:" class="form-control bg-dark text-white" readonly></input>
             <table class="table">
                 <tbody>
-                    {% for post in range(context.lenPosts) %}<a href="{{ url_for('postDetail', id=post) }}">
+                    {% for post in range(context.lenPosts) %}
                         <tr>
                             <td>
-                                <a href="{{ url_for('postDetail', id=post+1) }}">
-                                    {{ current_user.posts[post].titulo }}
+                                <a href="{{ url_for('postDetail', id=current_user.posts[post].id) }}" class="text-black text-decoration-black">
+                                    {{ current_user.posts[post].titulo }}  ({{ current_user.posts[post].data_resumo() }})
                                 </a>
                             </td>
                         </tr>
