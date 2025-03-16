@@ -3,6 +3,8 @@ bcrypt==4.3.0
 blinker==1.8.2
 click==8.1.8
 colorama==0.4.6
+customtkinter==5.2.0
+darkdetect==0.8.0
 dnspython==2.6.1
 email_validator==2.2.0
 Flask==3.0.3
