@@ -28,7 +28,11 @@ class UserForm(FlaskForm):
     # Cadastro no banco de dados
     def save(self):
         # gera hash para senha criptografada que permite caracteres especiais.
-        senha =  bcrypt.generate_password_hash(self.senha.data.encode('utf-8')) 
+        #senha =  bcrypt.generate_password_hash(self.senha.data.encode('utf-8'))
+        senha = bcrypt.generate_password_hash(self.senha.data).decode('utf-8')
+        if not str(senha).startswith('$2b$'):  # Verifica se o hash não está no formato bcrypt
+            raise Exception('Houve um erro ao salvar sua senha. Tente novamente ou entre em contato.')
+
 
         user = User(
             nome = self.nome.data,
@@ -61,7 +65,7 @@ class AlterUserForm(FlaskForm):
         if self.email.data:
             alt_user.email = self.email.data
         if self.senha.data:
-            senha = bcrypt.generate_password_hash(self.senha.data.encode('utf-8'))
+            senha = bcrypt.generate_password_hash(self.senha.data).decode('utf-8')
             alt_user.senha = senha
         
 
@@ -88,12 +92,12 @@ class LoginForm(FlaskForm):
 
     def login(self):
         # recuperar usuario do email
-        user = User.query.filter_by(email=self.email.data).first()
-
+        user = User.query.filter_by(email=self.email.data).first()       
         # verificar se a senha é valida
         if user:
             if bcrypt.check_password_hash(user.senha, self.senha.data.encode('utf-8')):
                 # Retorna o usuario
+                print("Usuário logado com sucesso")
                 return user
             else:
                 raise Exception('Senha incorreta.')
